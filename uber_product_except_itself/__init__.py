@@ -1,7 +1,7 @@
 from typing import Sequence
 from functools import reduce
 
-def product_except_inself(items: Sequence[int]) -> Sequence[int]:
+def product_others(items: Sequence[int]) -> Sequence[int]:
     """
     Given an array of integers, return a new array such that each element
     at index i of the new array is the product of all the numbers in
