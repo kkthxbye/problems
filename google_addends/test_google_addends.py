@@ -6,11 +6,15 @@ from google_addends import adds_up_to
 class Test(TestCase):
 
     def test_foo(self):
-        self.assertFalse(adds_up_to([], 1))
-        self.assertFalse(adds_up_to([], 0))
-        self.assertTrue(adds_up_to([0, 0], 0))
-        self.assertFalse(adds_up_to([1], 1))
-        self.assertTrue(adds_up_to([1, 0], 1))
-        self.assertTrue(adds_up_to([10, 15, 3, 7], 17))
-        self.assertTrue(adds_up_to([3, 7, 10, 15, 20], 35))
-        self.assertFalse(adds_up_to([10, 15, 3, 7], 28))
+        for addends, target, outcome in [
+            ([], 1, False),
+            ([], 0, False),
+            ([0, 0], 0, True),
+            ([1], 1, False),
+            ([1, 0], 1, True),
+            ([10, 15, 3, 7], 17, True),
+            ([3, 7, 10, 15, 20], 35, True),
+            ([10, 15, 3, 7], 28, False),
+        ]:
+            with self.subTest(i=(addends, target)):
+                self.assertEqual(outcome, adds_up_to(addends, target))
