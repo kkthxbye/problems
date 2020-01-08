@@ -1,5 +1,7 @@
+from itertools import accumulate
+from operator import mul
 from typing import Sequence
-from functools import reduce
+
 
 def product_others(items: Sequence[int]) -> Sequence[int]:
     """
@@ -12,8 +14,10 @@ def product_others(items: Sequence[int]) -> Sequence[int]:
     If our input was [3, 2, 1],
     the expected output would be [2, 3, 6].
     """
-    return [reduce(
-        lambda x, y: x * y,
-        (x for j, x in enumerate(items) if j != i),
-        1
-    ) for i in range(len(items))]
+    ltr, rtl = tuple(list(accumulate(x, mul))
+                     for x in (items, reversed(items)))
+    return [
+        (ltr[i - 1] if i >= 1 else 1)
+        * (rtl[-i - 2] if i < len(items) - 1 else 1)
+        for i in range(len(items))
+    ]
