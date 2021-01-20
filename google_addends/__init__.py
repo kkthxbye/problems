@@ -1,8 +1,7 @@
-from typing import Sequence
-from math import floor
+from typing import List
 
 
-def adds_up_to(addends: Sequence, target: int) -> bool:
+def adds_up_to(addends: List, target: int) -> bool:
     """
     Given a list of numbers and a number k,
     return whether any two numbers from the list add up to k.
@@ -26,3 +25,6 @@ def adds_up_to(addends: Sequence, target: int) -> bool:
             high = next(right)
 
     return False
+
+
+
