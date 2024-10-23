@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from typing import Iterable, Optional, Sequence
 
 
 def find_first_missing(ints: Sequence[int]) -> Optional[int]:
