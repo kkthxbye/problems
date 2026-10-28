@@ -20,21 +20,21 @@ def possibilities(num: int) -> FrozenSet[int]:
         ),
         None,
     )
-    if not coordinates:
+    if coordinates is None:
         return frozenset()
     start_x, start_y = coordinates
     return frozenset(
         value
         for x, y in (
             (start_x + x, start_y + y)
-            for x, y in chain(
-                *[list(product(*x)) for x in permutations([[-2, 2], [-1, 1]], 2)]
+            for x, y in chain.from_iterable(
+                (product(*x)) for x in permutations([[-2, 2], [-1, 1]], 2)
             )
         )
         if all(
             (
                 0 <= y < len(layout),
-                0 <= x < len(layout[y]),
+                0 <= x < len(layout[0]),
             )
         )
         and (value := layout[y][x]) is not None
@@ -47,6 +47,7 @@ class Test(TestCase):
         self.assertEqual({6, 8}, possibilities(1))
         self.assertEqual(frozenset(), possibilities(5))
         self.assertEqual({0, 3, 9}, possibilities(4))
+        self.assertEqual({1, 3}, possibilities(8))
 
 
 if __name__ == "__main__":
