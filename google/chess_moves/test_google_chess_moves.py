@@ -1,5 +1,5 @@
-from typing import FrozenSet, List, Tuple, Optional, Set
-from itertools import combinations, product, permutations, chain
+from typing import FrozenSet, List, Optional
+from itertools import product, permutations, chain
 from unittest import TestCase, main
 
 layout: List[List[Optional[int]]] = [
@@ -10,8 +10,8 @@ layout: List[List[Optional[int]]] = [
 ]
 
 
-def find_pos(num: int) -> Optional[Tuple[int, int]]:
-    return next(
+def possibilities(num: int) -> FrozenSet[int]:
+    coordinates = next(
         (
             (x, y)
             for y, row in enumerate(layout)
@@ -20,18 +20,17 @@ def find_pos(num: int) -> Optional[Tuple[int, int]]:
         ),
         None,
     )
-
-
-def possibilities(num: int) -> FrozenSet[int]:
-    moves_offsets = chain(
-        *[list(product(*x)) for x in permutations([[-2, 2], [-1, 1]], 2)]
-    )
-    if not (coordinates := find_pos(num)):
+    if not coordinates:
         return frozenset()
     start_x, start_y = coordinates
     return frozenset(
         value
-        for x, y in ((start_x + x, start_y + y) for x, y in moves_offsets)
+        for x, y in (
+            (start_x + x, start_y + y)
+            for x, y in chain(
+                *[list(product(*x)) for x in permutations([[-2, 2], [-1, 1]], 2)]
+            )
+        )
         if all(
             (
                 0 <= y < len(layout),
@@ -46,7 +45,7 @@ class Test(TestCase):
 
     def test_possibilities(self):
         self.assertEqual({6, 8}, possibilities(1))
-        self.assertEqual(set(), possibilities(5))
+        self.assertEqual(frozenset(), possibilities(5))
         self.assertEqual({0, 3, 9}, possibilities(4))
 
 
