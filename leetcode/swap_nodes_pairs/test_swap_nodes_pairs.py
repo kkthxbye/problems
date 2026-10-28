@@ -1,7 +1,7 @@
 from typing import List
 from unittest import TestCase
 
-from leetcode_swap_nodes_pairs import ListNode, swap_pairs
+from leetcode.swap_nodes_pairs import ListNode, swap_pairs
 
 
 def create_head(seq: List[int]) -> ListNode:

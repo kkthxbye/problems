@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from leetcode_longest_palindromic_substring import longest_palindromic_substring
+from leetcode.longest_palindromic_substring import longest_palindromic_substring
 
 
 class Test(TestCase):

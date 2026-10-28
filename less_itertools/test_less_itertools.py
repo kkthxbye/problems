@@ -1,5 +1,5 @@
 import pytest
-from less_itertools.less_itertools import vectorize, n_predicate_partition, partition
+from less_itertools import vectorize, n_predicate_partition, partition
 
 
 @pytest.mark.parametrize(
