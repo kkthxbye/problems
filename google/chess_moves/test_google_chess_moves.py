@@ -11,11 +11,15 @@ layout: List[List[Optional[int]]] = [
 
 
 def find_pos(num: int) -> Optional[Tuple[int, int]]:
-    for y, row in enumerate(layout):
-        for x, value in enumerate(row):
-            if value == num:
-                return (x, y)
-    return None
+    return next(
+        (
+            (x, y)
+            for y, row in enumerate(layout)
+            for x, value in enumerate(row)
+            if value == num
+        ),
+        None,
+    )
 
 
 def possibilities(num: int) -> FrozenSet[int]:
